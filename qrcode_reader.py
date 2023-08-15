@@ -1,4 +1,13 @@
 from ultralytics import YOLO
-#change path of model to best.pt path
-model = YOLO(r"C:\Users\HP\PycharmProjects\pythonProject1\yolo\runs\detect\train2\weights\best.pt")
-results = model(r'C:\Users\HP\PycharmProjects\pythonProject1\smart_fridge\test.jpg',save=True,conf=0.7,imgsz=256)[0]
+import glob
+import os
+model_directory = r"C:\Users\HP\Downloads\iotFridge-main\iotFridge-main\runs\detect"
+
+model_files = glob.glob(f"{model_directory}/train*/weights/best.pt")
+latest_model_file = max(model_files, key=os.path.getctime)
+model = YOLO(latest_model_file)
+
+results = model('try.jpg',conf=0.5,imgsz=256)[0]
+for detection in results.boxes.data.tolist():
+    x1, y1, x2, y2, score, class_id = detection
+    print(int(class_id))
