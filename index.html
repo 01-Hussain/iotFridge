@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="index.css">
-    <link rel="short icon" href="C:\Users\user\Desktop\My work\Smart fridge\Web_server\stock\settings.png" alt="Webserver Logo">
+    <link rel="short icon" href="C:\Users\user\Desktop\My work\Smart fridge\Web_server\stock\settings.png"
+        alt="Webserver Logo">
 </head>
+
 <body>
     <center>
-        <button type="button" id="learn-button">
-            Learning mode
-        </button> 
+        <a href="/learn"><button>Learning Mode</button></a>
+        <a href="/get-fridge"><button>check fridge items</button></a>
     </center>
     <script>
         const TrainButton = document.getElementById("learn-button")
-        .addEventListener("click", () => {
-            fetch('http://127.0.0.1/run-script')
-            // window.location.href = "http://www.google.com";
-        });
+            .addEventListener("click", () => {
+                fetch('http://127.0.0.1/run-script')
+                // window.location.href = "http://www.google.com";
+            });
     </script>
 </body>
+
 </html>
