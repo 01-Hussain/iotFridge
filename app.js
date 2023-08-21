@@ -4,9 +4,9 @@ const axios = require('axios');
 const fs = require('fs');
 const labelImg = require('./labelImg.js');
 const get_images = require('./model.js');
-const sqlite3 = require('sqlite3');
+// const sqlite3 = require('sqlite3');
 const execute = require('./sql.js');
-const train = require('./train.js');
+// const train = require('./train.js');
 const app = express();
 const path = require('path');
 const multer = require('multer');
@@ -51,10 +51,11 @@ app.post('/upload', upload.fields([{ name: 'train_files', maxCount: 10 }, { name
     if (typeof trainFiles === 'undefined' || typeof valFiles === 'undefined') {
         res.redirect('/upload');
     }
-    setTimeout(() => {
-        train();
-    }, 2000)
-    res.send('training');
+    res.send("uploaded files successfully")
+    // setTimeout(() => {
+    //     train();
+    // }, 2000)
+    // res.send('training');
 });
 app.get('/upload', function (req, res) {
     res.sendFile(path.join(__dirname, './upload.html'));
