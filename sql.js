@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3');
 const YAML = require('yamljs');
 const { spawn, exec } = require('child_process');
 const fs = require('fs');
-const config_path = 'C:\\Users\\HP\\PycharmProjects\\pythonProject1\\yolo\\config.yaml';
+const config_path = 'config.yaml';
 let config = YAML.load(config_path);
 function delete_items() {
     let db = new sqlite3.Database('./items.db', (err) => {
