@@ -4,11 +4,11 @@ function runLabelImg() {
     const labelImgCommand = 'labelImg';
     const labelImgArgs = [
         'images/train',
-        'C:\\Users\\HP\\PycharmProjects\\pythonProject1\\yolo\\classes.txt'
+        'classes.txt'
     ]; // Example arguments
     const Args = [
         'images/val',
-        'C:\\Users\\HP\\PycharmProjects\\pythonProject1\\yolo\\classes.txt'
+        'classes.txt'
     ];
     const labelImgProcess = spawn(labelImgCommand, labelImgArgs);
     const labelImg = spawn(labelImgCommand, Args);
