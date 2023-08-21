@@ -1,0 +1,6 @@
+path: /content/drive/MyDrive
+train: images/train
+val: images/val
+names:
+  0: labneh
+  1: kishta
