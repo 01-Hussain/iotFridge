@@ -65,7 +65,7 @@ function get_items() {
 }
 function runPythonScript() {
     return new Promise((resolve, reject) => {
-        const pythonFile = 'C:\\Users\\HP\\PycharmProjects\\pythonProject1\\yolo\\qrcode_reader.py';
+        const pythonFile = 'qrcode_reader.py';
         const pythonProcess = spawn('python', [pythonFile]);
         let db = new sqlite3.Database('./items.db', (err) => {
             if (err) {
