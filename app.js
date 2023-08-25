@@ -3,15 +3,14 @@ const updateyml = require('./update_yaml.js')
 const axios = require('axios');
 const fs = require('fs');
 const get_images = require('./model.js');
-// const sqlite3 = require('sqlite3');
 const execute = require('./sql.js');
-// const train = require('./train.js');
+const train = require('./train.js');
 const app = express();
 const path = require('path');
+const { spawn } = require('child_process');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
-
 
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, './index.html'));
@@ -19,28 +18,37 @@ app.get("/", function (req, res) {
 app.get("/learn", function (req, res) {
     res.sendFile(path.join(__dirname, './learn.html'));
 });
-app.post('/learn', (req, res) => {
+app.post('/learn', async (req, res) => {
     updateyml.updateYaml(req.body.new_class);
-    get_images.get_images();
+    await get_images.get_images();
     res.redirect('/upload');
 });
-app.post('/upload', upload.fields([{ name: 'train_files', maxCount: 10 }, { name: 'val_files', maxCount: 10 }]), (req, res) => {
-    const trainFiles = req.files['train_files'];
-    const valFiles = req.files['val_files'];
-    if (typeof trainFiles === 'undefined' || typeof valFiles === 'undefined') {
-        res.redirect('/upload');
-    }
-    res.send("uploaded files successfully")
-    // setTimeout(() => {
-    //     train();
-    // }, 2000)
-    // res.send('training');
+app.post('/upload', (req, res) => {
+    res.send('training');
 });
 app.get('/upload', function (req, res) {
-    res.sendFile(path.join(__dirname, './upload.html'));
-    setTimeout(() => {
-        labelImg();
-    }, 16000);
+    const pythonProcess = spawn('python', ['C:\\Users\\HP\\PycharmProjects\\pythonProject1\\yolo\\cvat.py']);
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            res.redirect('/train');
+        } else {
+            res.status(500).send('Error executing Python script');
+        }
+    });
+    pythonProcess.on('error', (error) => {
+        res.status(500).send(`Error running Python script: ${error.message}`);
+    });
+    pythonProcess.stderr.on('data', (data) => {
+        const errorMessage = data.toString();
+        console.error(errorMessage);
+    });
+});
+app.get("/train", (req, res) => {
+    res.sendFile(path.join(__dirname, './train.html'));
+});
+app.post("/train", async (res, req) => {
+    await train();
+    res.redirect('/');
 });
 app.get('/get-fridge', (req, res) => {
     let url = 'http://192.168.100.200/capture';
@@ -65,5 +73,5 @@ app.get('/get-fridge', (req, res) => {
             res.status(500).send('An error occurred');
         });
 })
-var port = 8080
+var port = 80
 app.listen(port, () => console.log(`Server listening on port ${port}`));
