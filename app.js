@@ -2,7 +2,6 @@ const express = require('express');
 const updateyml = require('./update_yaml.js')
 const axios = require('axios');
 const fs = require('fs');
-const labelImg = require('./labelImg.js');
 const get_images = require('./model.js');
 // const sqlite3 = require('sqlite3');
 const execute = require('./sql.js');
@@ -86,5 +85,5 @@ app.get('/get-fridge', (req, res) => {
             res.status(500).send('An error occurred');
         });
 })
-var port = 80
+var port = 8080
 app.listen(port, () => console.log(`Server listening on port ${port}`));
