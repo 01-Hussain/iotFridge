@@ -27,7 +27,7 @@ app.post('/upload', (req, res) => {
     res.send('training');
 });
 app.get('/upload', function (req, res) {
-    const pythonProcess = spawn('python', ['C:\\Users\\HP\\PycharmProjects\\pythonProject1\\yolo\\cvat.py']);
+    const pythonProcess = spawn('python', ['cvat.py']);
     pythonProcess.on('close', (code) => {
         if (code === 0) {
             res.redirect('/train');
