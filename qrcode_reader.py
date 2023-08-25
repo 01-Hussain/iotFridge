@@ -1,11 +1,14 @@
 from ultralytics import YOLO
 import glob
 import os
-# model_directory = r"C:\Users\HP\Downloads\iotFridge-main\iotFridge-main\runs\detect"
+train_folder_path = r"C:\Users\HP\PycharmProjects\pythonProject1\yolo\runs\detect"
 
-# model_files = glob.glob(f"{model_directory}/train*/weights/best.pt")
-# latest_model_file = max(model_files, key=os.path.getctime)
-model = YOLO('best.pt')
+latest_train_folder = max(glob.glob(os.path.join(train_folder_path, "train*")), key=os.path.getctime)
+
+
+weights_path = os.path.join(latest_train_folder, "weights", "best.pt")
+
+model = YOLO(weights_path)
 
 results = model('try.jpg',conf=0.5,imgsz=256)[0]
 for detection in results.boxes.data.tolist():
