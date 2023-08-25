@@ -8,7 +8,6 @@ const execute = require('./sql.js');
 // const train = require('./train.js');
 const app = express();
 const path = require('path');
-const multer = require('multer');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
