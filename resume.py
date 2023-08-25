@@ -10,4 +10,4 @@ latest_train_folder = max(glob.glob(os.path.join(train_folder_path, "train*")), 
 weights_path = os.path.join(latest_train_folder, "weights", "best.pt")
 
 model = YOLO(weights_path)
-results = model.train(data="config.yaml", epochs=10, imgsz=256)
+results = model.train(data="config.yaml", epochs=40, imgsz=256)
