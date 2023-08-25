@@ -73,5 +73,5 @@ app.get('/get-fridge', (req, res) => {
             res.status(500).send('An error occurred');
         });
 })
-var port = 80
+var port = 8080
 app.listen(port, () => console.log(`Server listening on port ${port}`));
