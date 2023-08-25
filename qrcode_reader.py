@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import glob
 import os
-train_folder_path = r"C:\Users\HP\PycharmProjects\pythonProject1\yolo\runs\detect"
+train_folder_path = "runs/detect"
 
 latest_train_folder = max(glob.glob(os.path.join(train_folder_path, "train*")), key=os.path.getctime)
 
