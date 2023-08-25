@@ -69,5 +69,4 @@ exports.get_images = get_images;
     setTimeout(() => {
         processImages('val');
     }, 3000);
-}
 exports.get_images = get_images;
