@@ -13,25 +13,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        if (file.fieldname === 'train_files') {
-            cb(null, './labels/train/');
-        } else if (file.fieldname === 'val_files') {
-            cb(null, './labels/val/');
-        } else {
-            cb(new Error('Invalid fieldname'));
-        }
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
-});
-
-const upload = multer({ storage });
-
-
-
 
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, './index.html'));
